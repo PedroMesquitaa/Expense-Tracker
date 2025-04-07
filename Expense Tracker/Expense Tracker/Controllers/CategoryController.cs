@@ -25,7 +25,6 @@ namespace Expense_Tracker.Controllers
         }
 
 
-
         // GET: Category/AddOrEdit
         public IActionResult AddOrEdit(int id=0)
         {
