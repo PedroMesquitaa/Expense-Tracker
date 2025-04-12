@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Expense_Tracker.Models
+namespace Despesa_Tracker.Models
 {
     public class Category
     {
@@ -16,7 +16,7 @@ namespace Expense_Tracker.Models
         public string Icon { get; set; } = "";
 
         [Column(TypeName = "nvarchar(10)")]
-        public string Type { get; set; } = "Expense";
+        public string Type { get; set; } = "Despesa";
 
         [NotMapped]
         public string? TitleWithIcon

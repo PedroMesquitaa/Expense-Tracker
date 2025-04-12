@@ -327,11 +327,11 @@ nav.navbar {
             font-weight: bold;
         }
 
-    .widget.income > div:first-child {
+    .widget.Receita > div:first-child {
         color: #65da41;
     }
 
-    .widget.expense > div:first-child {
+    .widget.Despesa > div:first-child {
         color: #ff4e48;
     }
 

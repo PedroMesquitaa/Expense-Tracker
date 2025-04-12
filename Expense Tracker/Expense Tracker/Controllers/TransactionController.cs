@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Expense_Tracker.Models;
+using Despesa_Tracker.Models;
 
-namespace Expense_Tracker.Controllers
+namespace Despesa_Tracker.Controllers
 {
     public class TransactionController : Controller
     {
