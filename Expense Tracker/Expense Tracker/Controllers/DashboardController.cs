@@ -1,9 +1,9 @@
-﻿using Expense_Tracker.Models;
+﻿using Despesa_Tracker.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Globalization;
 
-namespace Expense_Tracker.Controllers
+namespace Despesa_Tracker.Controllers
 {
     public class DashboardController : Controller
     {
@@ -26,27 +26,27 @@ namespace Expense_Tracker.Controllers
                 .Where(y => y.Date >= StartDate && y.Date <= EndDate)
                 .ToListAsync();
 
-            //Total Income
-            int TotalIncome = SelectedTransactions
-                .Where(i => i.Category.Type == "Income")
+            //Total Receita
+            int TotalReceita = SelectedTransactions
+                .Where(i => i.Category.Type == "Receita")
                 .Sum(j => j.Amount);
-            ViewBag.TotalIncome = TotalIncome.ToString("C0");
+            ViewBag.TotalReceita = TotalReceita.ToString("C0");
 
-            //Total Expense
-            int TotalExpense = SelectedTransactions
-                .Where(i => i.Category.Type == "Expense")
+            //Total Despesa
+            int TotalDespesa = SelectedTransactions
+                .Where(i => i.Category.Type == "Despesa")
                 .Sum(j => j.Amount);
-            ViewBag.TotalExpense = TotalExpense.ToString("C0");
+            ViewBag.TotalDespesa = TotalDespesa.ToString("C0");
 
             //Balance
-            int Balance = TotalIncome - TotalExpense;
+            int Balance = TotalReceita - TotalDespesa;
             CultureInfo culture = CultureInfo.CreateSpecificCulture("en-US");
             culture.NumberFormat.CurrencyNegativePattern = 1;
             ViewBag.Balance = String.Format(culture, "{0:C0}", Balance);
 
-            //Doughnut Chart - Expense By Category
+            //Doughnut Chart - Despesa By Category
             ViewBag.DoughnutChartData = SelectedTransactions
-                .Where(i => i.Category.Type == "Expense")
+                .Where(i => i.Category.Type == "Despesa")
                 .GroupBy(j => j.Category.CategoryId)
                 .Select(k => new
                 {
@@ -57,45 +57,45 @@ namespace Expense_Tracker.Controllers
                 .OrderByDescending(l => l.amount)
                 .ToList();
 
-            //Spline Chart - Income vs Expense
+            //Spline Chart - Receita vs Despesa
 
-            //Income
-            List<SplineChartData> IncomeSummary = SelectedTransactions
-                .Where(i => i.Category.Type == "Income")
+            //Receita
+            List<SplineChartData> ReceitaSummary = SelectedTransactions
+                .Where(i => i.Category.Type == "Receita")
                 .GroupBy(j => j.Date)
                 .Select(k => new SplineChartData()
                 {
                     day = k.First().Date.ToString("dd-MMM"),
-                    income = k.Sum(l => l.Amount)
+                    Receita = k.Sum(l => l.Amount)
                 })
                 .ToList();
 
-            //Expense
-            List<SplineChartData> ExpenseSummary = SelectedTransactions
-                .Where(i => i.Category.Type == "Expense")
+            //Despesa
+            List<SplineChartData> DespesaSummary = SelectedTransactions
+                .Where(i => i.Category.Type == "Despesa")
                 .GroupBy(j => j.Date)
                 .Select(k => new SplineChartData()
                 {
                     day = k.First().Date.ToString("dd-MMM"),
-                    expense = k.Sum(l => l.Amount)
+                    Despesa = k.Sum(l => l.Amount)
                 })
                 .ToList();
 
-            //Combine Income & Expense
+            //Combine Receita & Despesa
             string[] Last7Days = Enumerable.Range(0, 7)
                 .Select(i => StartDate.AddDays(i).ToString("dd-MMM"))
                 .ToArray();
 
             ViewBag.SplineChartData = from day in Last7Days
-                                      join income in IncomeSummary on day equals income.day into dayIncomeJoined
-                                      from income in dayIncomeJoined.DefaultIfEmpty()
-                                      join expense in ExpenseSummary on day equals expense.day into expenseJoined
-                                      from expense in expenseJoined.DefaultIfEmpty()
+                                      join Receita in ReceitaSummary on day equals Receita.day into dayReceitaJoined
+                                      from Receita in dayReceitaJoined.DefaultIfEmpty()
+                                      join Despesa in DespesaSummary on day equals Despesa.day into DespesaJoined
+                                      from Despesa in DespesaJoined.DefaultIfEmpty()
                                       select new
                                       {
                                           day = day,
-                                          income = income == null ? 0 : income.income,
-                                          expense = expense == null ? 0 : expense.expense,
+                                          Receita = Receita == null ? 0 : Receita.Receita,
+                                          Despesa = Despesa == null ? 0 : Despesa.Despesa,
                                       };
             //Recent Transactions
             ViewBag.RecentTransactions = await _context.Transactions
@@ -112,8 +112,8 @@ namespace Expense_Tracker.Controllers
     public class SplineChartData
     {
         public string day;
-        public int income;
-        public int expense;
+        public int Receita;
+        public int Despesa;
 
     }
 }

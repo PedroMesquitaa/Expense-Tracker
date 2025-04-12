@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace Expense_Tracker.Models
+namespace Despesa_Tracker.Models
 {
     public class ApplicationDbContext:DbContext
     {

@@ -1,7 +1,7 @@
-﻿@model Expense_Tracker.Models.Category
+﻿@model Despesa_Tracker.Models.Category
 
 @{
-    ViewData["PageTitle"] = Model.CategoryId == 0 ? "Create a new category": "Edit category";
+    ViewData["PageTitle"] = Model.CategoryId == 0 ? "Criar nova categoria": "Editar categoria";
 }
 
 
@@ -13,21 +13,21 @@
                 <input type="hidden" name="CategoryId" value="@Model.CategoryId" />
                 <div class="mb-3">
                     <div class='e-btn-group custom-rbt-group'>
-                        <input type="radio" id="radioleft" name="Type" value="Expense" checked="@(Model.Type=="Expense")" />
-                        <label class="e-btn" for="radioleft">Expense</label>
-                        <input type="radio" id="radiomiddle" name="Type" value="Income" checked="@(Model.Type=="Income")" />
-                        <label class="e-btn" for="radiomiddle">Income</label>
+                        <input type="radio" id="radioleft" name="Type" value="Despesa" checked="@(Model.Type=="Despesa")" />
+                        <label class="e-btn" for="radioleft">Despesa</label>
+                        <input type="radio" id="radiomiddle" name="Type" value="Receita" checked="@(Model.Type=="Receita")" />
+                        <label class="e-btn" for="radiomiddle">Receita</label>
                     </div>
                 </div>
                 <div class="mb-3">
-                    <ejs-textbox id="title" name="Title" placeholder="Title" ejs-for="@Model.Title" floatLabelType="Always"></ejs-textbox>
+                    <ejs-textbox id="title" name="Title" placeholder="Título" ejs-for="@Model.Title" floatLabelType="Always"></ejs-textbox>
                     <span asp-validation-for="Title" class="text-danger fs-6"></span>
                 </div>
                 <div class="mb-3">
-                    <ejs-textbox id="icon" name="Icon" placeholder="Icon" ejs-for="@Model.Icon" floatLabelType="Always"></ejs-textbox>
+                    <ejs-textbox id="icon" name="Icon" placeholder="Emoji" ejs-for="@Model.Icon" floatLabelType="Always"></ejs-textbox>
                     <span asp-validation-for="Icon" class="text-danger fs-6"></span>
                 </div>
-                <ejs-button id="submit" typeof="submit" content="Submit" cssClass='e-success'></ejs-button>
+                <ejs-button id="submit" typeof="submit" content="Enviar" cssClass='e-success'></ejs-button>
             </form>
         </div>
     </div>

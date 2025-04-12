@@ -1,8 +1,8 @@
-﻿@model IEnumerable<Expense_Tracker.Models.Transaction>
+﻿@model IEnumerable<Despesa_Tracker.Models.Transaction>
 
 @{
-    ViewData["PageTitle"] = "Transactions";
-    ViewData["PageActionText"] = "+ New Transaction";
+    ViewData["PageTitle"] = "Transações";
+    ViewData["PageActionText"] = "+ Nova Transação";
     ViewData["PageActionUrl"] = "/Transaction/AddOrEdit";
 }
 
@@ -11,11 +11,11 @@
         <ejs-grid id="transactions" dataSource="@Model" gridLines="None" allowSorting="true" allowPaging="true">
             <e-grid-pagesettings pageSize="10"></e-grid-pagesettings>
             <e-grid-columns>
-                <e-grid-column headerText="Category" field="CategoryTitleWithIcon"></e-grid-column>
-                <e-grid-column headerText="Date" field="Date" width="110px"
+                <e-grid-column headerText="Categoria" field="CategoryTitleWithIcon"></e-grid-column>
+                <e-grid-column headerText="Data" field="Date" width="110px"
                  type="date" format="MMM-dd-yy" textAlign="Left"></e-grid-column>
-                <e-grid-column headerText="Amount" field="FormattedAmount" textAlign="Right" width="110px"></e-grid-column>
-                <e-grid-column headerText="Actions" template="#actionColumnTemplate" width="100px"></e-grid-column>
+                <e-grid-column headerText="Valor" field="FormattedAmount" textAlign="Right" width="110px"></e-grid-column>
+                <e-grid-column headerText="Ações" template="#actionColumnTemplate" width="100px"></e-grid-column>
             </e-grid-columns>
         </ejs-grid>
     </div>
@@ -33,7 +33,7 @@
         </a>
         <form action="/Transaction/Delete/${TransactionId}" method="post">
     @Html.AntiForgeryToken()
-           <button type="submit" class="btn btn-sm btn-link no-a-decoration" onclick="return confirm(&quot;Are you sure to delete this record?&quot;)">
+           <button type="submit" class="btn btn-sm btn-link no-a-decoration" onclick="return confirm(&quot;Tem certeza de que pretende apagar este registro?&quot;)">
                <i class="fa-solid fa-trash-can fa-lg text-danger"></i>
             </button>
         </form>
